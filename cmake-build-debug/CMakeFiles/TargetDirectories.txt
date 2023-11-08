@@ -1,0 +1,3 @@
+/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/cmake-build-debug/CMakeFiles/macmahon_squares.dir
+/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/cmake-build-debug/CMakeFiles/rebuild_cache.dir
