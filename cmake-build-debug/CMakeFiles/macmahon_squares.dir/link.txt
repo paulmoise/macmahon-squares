@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/macmahon_squares.dir/board.cpp.o CMakeFiles/macmahon_squares.dir/helper.cpp.o CMakeFiles/macmahon_squares.dir/piece.cpp.o CMakeFiles/macmahon_squares.dir/main.cpp.o -o macmahon_squares 
+/usr/bin/c++ -g CMakeFiles/macmahon_squares.dir/board.cpp.o CMakeFiles/macmahon_squares.dir/helper.cpp.o CMakeFiles/macmahon_squares.dir/piece.cpp.o CMakeFiles/macmahon_squares.dir/main.cpp.o CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.o -o macmahon_squares 

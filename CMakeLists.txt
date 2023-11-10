@@ -12,4 +12,7 @@ add_executable(macmahon_squares
         helper.hpp
         piece.cpp
         piece.hpp
-        main.cpp)
+        main.cpp
+        puzzlegame.cpp
+        puzzlegame.hpp
+        puzzlegame.hpp)

@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/helper.cpp" "CMakeFiles/macmahon_squares.dir/helper.cpp.o" "gcc" "CMakeFiles/macmahon_squares.dir/helper.cpp.o.d"
   "/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/main.cpp" "CMakeFiles/macmahon_squares.dir/main.cpp.o" "gcc" "CMakeFiles/macmahon_squares.dir/main.cpp.o.d"
   "/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/piece.cpp" "CMakeFiles/macmahon_squares.dir/piece.cpp.o" "gcc" "CMakeFiles/macmahon_squares.dir/piece.cpp.o.d"
+  "/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/puzzlegame.cpp" "CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.o" "gcc" "CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.o.d"
   )
 
 # Targets to which this target links.

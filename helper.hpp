@@ -40,7 +40,10 @@ namespace helper_function{
 
 
 
-    int readPiecesFromFile(std::string piecesFilePath, std::vector<Piece> & pieces){
+    std::vector<Piece> readPiecesFromFile(std::string piecesFilePath){
+
+        std::vector<Piece> pieces;
+
         int rowSize, colSize;
         std::map<std::string, Color> colorMap {
                 { "R", R },
@@ -73,10 +76,10 @@ namespace helper_function{
             }
 
             boardPiecesFileStream.close();
-            return rowSize;
+            return pieces;
         }
         std::cout << "File can't be open" << std::endl;
-        return -1;
+        return pieces;
 
 
 

@@ -1,9 +1,11 @@
 #include "board.hpp"
 #include "piece.hpp"
-#include "helper.hpp"
+#include <iostream>
 #include <string>
+#include <thread>
+#include <atomic>
 
-using namespace helper_function;
+std::atomic<bool> solved;
 
 
 Board::Board() {}
@@ -12,14 +14,26 @@ void Board::setDim(int d) {
     this->dim = d;
 }
 
-Board::Board(std::string filePiecesPath) {
-    int d = readPiecesFromFile(filePiecesPath, this->availablePieces);
-    setDim(d);
-    helper_function::initializeGrid(this->grid, this->dim);
+//Board::Board(std::string filePiecesPath) {
+//    int d = readPiecesFromFile(filePiecesPath, this->availablePieces);
+//    setDim(d);
+//    helper_function::initializeGrid(this->grid, this->dim);
+//}
+
+Board::Board(int dim, std::vector<std::vector<Piece>> grid, std::vector<Piece> pieces) :
+        dim(dim),
+        grid(grid),
+        availablePieces(pieces) {
 }
+//
+//Board::Board(Board &b) {
+//    this->dim = b.dim;
+//    this->grid = b.grid;
+//    this->availablePieces = b.availablePieces;
+//}
+
 
 std::vector<Piece> Board::getAvailablePieces() { return this->availablePieces; }
-
 
 
 bool Board::isValidState(int indexRow, int indexCol, Piece p) {
@@ -42,8 +56,6 @@ bool Board::areBorderPiecesHasSameColor(int indexRow, int indexCol, Piece p) {
     }
 
     char topColor = grid[0][0].getTop();
-
-
 
 
     if (indexRow == dim - 1 && indexCol == dim - 1) {
@@ -72,7 +84,7 @@ bool Board::areBorderPiecesHasSameColor(int indexRow, int indexCol, Piece p) {
         // for the cell who has j == 0 (first column)
         return p.getLeft() == topColor;
     } else if (indexCol == dim - 1 && indexRow > 0 && indexRow < dim - 1) {
-        // for the cell who has j == 0 (first column)
+        // for the cell who has j == dim - 1 (last column)
         return p.getRight() == topColor;
     }
     return true;
@@ -113,29 +125,19 @@ bool Board::hasValidAjacentPieces(int indexRow, int indexCol, Piece p) {
 }
 
 
-
-
-
 bool Board::solver(int indexRow, int indexCol) {
-
-//    std::cout << "(i , j ) = (" << indexRow << ", " << indexCol << ")" << std::endl;
-//    std::cout << "_____________________________________________________" << std::endl;
-
-//    displayBoard();
-
-//    std::cout << "_____________________________________________________" << std::endl;
-
 
     if (indexRow == dim) {
         // Reached the end of the board, return true as the puzzle is solved
+        std::cout << "I reached the end" << std::endl;
         return true;
     }
     // Loop through all available pieces
-    for (int i = 0; i < availablePieces.size(); ++i) {
-        if (!availablePieces[i].getIsUsed() && isValidState(indexRow, indexCol, availablePieces[i])) {
+    for (auto &availablePiece: availablePieces) {
+        if (!availablePiece.getIsUsed() && isValidState(indexRow, indexCol, availablePiece)) {
             // Try placing the current piece
-            availablePieces[i].setIsUsed(true);
-            setPiece(indexRow, indexCol, availablePieces[i]);
+            availablePiece.setIsUsed(true);
+            setPiece(indexRow, indexCol, availablePiece);
 
             // Explore the next position
             int nextRow = indexCol == dim - 1 ? indexRow + 1 : indexRow;
@@ -148,7 +150,7 @@ bool Board::solver(int indexRow, int indexCol) {
             }
 
             // Backtrack if the current placement doesn't lead to a solution
-            availablePieces[i].setIsUsed(false);
+            availablePiece.setIsUsed(false);
             setPiece(indexRow, indexCol, Piece()); // Reset the cell
         }
     }
@@ -158,11 +160,24 @@ bool Board::solver(int indexRow, int indexCol) {
 }
 
 void Board::solve() {
+//    for (auto &p: availablePieces){
+//        setPiece(0, 0, p);
+//        p.setIsUsed(true);
+//        if(solver(0, 1)) {
+//            std::cout << "Solution found" << std::endl;
+//            break;
+//        }else{
+//            p.setIsUsed(false);
+//            std::cout << "Solution not found" << std::endl;
+//        }
+//    }
     solver(0, 0);
 }
 
 
-void displayPiece(std::vector<Piece> rowPieces) {
+
+
+void Board::displayPiece(std::vector<Piece> rowPieces) {
 
     for (int k = 0; k < 3; k++) {
         for (int i = 0; i < rowPieces.size(); i++) {
@@ -197,7 +212,7 @@ void displayPiece(std::vector<Piece> rowPieces) {
     }
 }
 
-void displaySeparator(int n) {
+void Board::displaySeparator(int n) {
     for (int i = 0; i < n; i++) {
         std::cout << "_";
     }
@@ -277,6 +292,112 @@ Board::~Board() {
 }
 
 
+bool Board::puzzleSolver(int indexRow, int indexCol) {
 
+    if (solved){
+        return true;
+    }
+
+    if (indexRow == dim) {
+        // Reached the end of the board, return true as the puzzle is solved
+        solved = true;
+        return true;
+    }
+    // Loop through all available pieces
+    for (auto &availablePiece: availablePieces) {
+        if (!availablePiece.getIsUsed() && isValidState(indexRow, indexCol, availablePiece)) {
+            // Try placing the current piece
+            availablePiece.setIsUsed(true);
+            setPiece(indexRow, indexCol, availablePiece);
+
+            // Explore the next position
+            int nextRow = indexCol == dim - 1 ? indexRow + 1 : indexRow;
+            int nextCol = indexCol == dim - 1 ? 0 : indexCol + 1;
+
+            // Recur for the next position
+            if (solver(nextRow, nextCol)) {
+//                std::cout << nextCol << std::endl;
+                solved = true;
+                return true; // Solution found
+            }
+
+            // Backtrack if the current placement doesn't lead to a solution
+            availablePiece.setIsUsed(false);
+            setPiece(indexRow, indexCol, Piece()); // Reset the cell
+        }
+    }
+
+    // No solution found
+    return false;
+}
+
+void Board::solveByThread() {
+    std::vector<std::thread> threads;
+
+    auto action = [this]( int i, int j) {
+        this->puzzleSolver(i, j);
+    };
+
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < dim; j++) {
+            threads.emplace_back(action, i, j);
+        }
+    }
+
+    for (auto &t: threads) {
+        t.join();
+    }
+}
+
+/*
+ *
+ * 1- shuffle a list of vector
+ * 2- have a fix number of thread and run them parallel
+ * 3- the fist who finish set the atomic variable
+ */
+
+
+void Board::solveByThreadV2() {
+    std::vector<std::thread> threads;
+    Board b = Board();
+    b.availablePieces = this->availablePieces;
+    b.grid = this->grid;
+    b.dim = this->dim;
+
+
+    auto action = [](Board b) {
+        b.puzzleSolver(0, 0);
+    };
+
+    for (int i = 0; i < 5; i++) {
+        threads.emplace_back(action, b);
+    }
+
+
+
+    for (auto &t: threads) {
+        t.join();
+    }
+}
+
+
+
+
+
+
+
+/*
+ * 1- Create at least n*n n tasks
+ * 2- Can be filtered to remove all pieces that can be removed from the vector of tasks
+ * 3- Place the every piece at (0, 0)
+ * 4- Start the backtracking in position (0,1)
+ *
+ *  lauchBacktracking(Board, Tuile, int, int){
+ *   nbreThread++;
+ *   backtracking()
+ *   }
+ *   while (1) == tant que j'ai de tache, tant que j'ai pas trouve une solution
+ *
+ */
 
 

@@ -225,6 +225,30 @@ piece.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/macmahon_squares.dir/build.make CMakeFiles/macmahon_squares.dir/piece.cpp.s
 .PHONY : piece.cpp.s
 
+puzzlegame.o: puzzlegame.cpp.o
+.PHONY : puzzlegame.o
+
+# target to build an object file
+puzzlegame.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/macmahon_squares.dir/build.make CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.o
+.PHONY : puzzlegame.cpp.o
+
+puzzlegame.i: puzzlegame.cpp.i
+.PHONY : puzzlegame.i
+
+# target to preprocess a source file
+puzzlegame.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/macmahon_squares.dir/build.make CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.i
+.PHONY : puzzlegame.cpp.i
+
+puzzlegame.s: puzzlegame.cpp.s
+.PHONY : puzzlegame.s
+
+# target to generate assembly for a file
+puzzlegame.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/macmahon_squares.dir/build.make CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.s
+.PHONY : puzzlegame.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -246,6 +270,9 @@ help:
 	@echo "... piece.o"
 	@echo "... piece.i"
 	@echo "... piece.s"
+	@echo "... puzzlegame.o"
+	@echo "... puzzlegame.i"
+	@echo "... puzzlegame.s"
 .PHONY : help
 
 

@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/macmahon_squares.dir/main.cpp.o.d"
   "CMakeFiles/macmahon_squares.dir/piece.cpp.o"
   "CMakeFiles/macmahon_squares.dir/piece.cpp.o.d"
+  "CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.o"
+  "CMakeFiles/macmahon_squares.dir/puzzlegame.cpp.o.d"
   "macmahon_squares"
   "macmahon_squares.pdb"
 )

@@ -105,6 +105,12 @@
 		<Unit filename="/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/piece.hpp">
 			<Option target="macmahon_squares"/>
 		</Unit>
+		<Unit filename="/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/puzzlegame.cpp">
+			<Option target="macmahon_squares"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/puzzlegame.hpp">
+			<Option target="macmahon_squares"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/pgangbadja/CLionProjects/macmahon-squares/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
